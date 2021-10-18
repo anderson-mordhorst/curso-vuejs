@@ -1,0 +1,37 @@
+<meta charset="UTF-8">
+<script src="https://unpkg.com/vue"></script>
+
+<div id="app"></div>
+
+<script>
+    const vm = new Vue({
+        template: `
+            <div>
+                <h1>{{ aula }}</h1>    
+                <h2>{{ modulo }}</h2>    
+                <button @click="alterarAula">Alterar aula</button>
+                <button @click="alterarModulo">Alterar módulo</button>            
+            </div>
+        `,
+        data: {
+            aula: 'Montando instância vue',
+            modulo: 'Módulo: Instância Vue',
+        },
+        methods: {
+            alterarAula() {
+                this.aula += '#';
+            },
+            alterarModulo() {
+                this.modulo += '#';
+            },            
+        }
+    });
+
+    
+    
+    vm.$mount()
+    // aqui depois de montando, pode ser usado javascript puro, visto que o $el já está montado
+    document.querySelector('#app').appendChild(vm.$el);
+    //vm.$mount('#app')
+    // vm.$mount() -> Nessa chamada precisa de um template ou render
+</script>
