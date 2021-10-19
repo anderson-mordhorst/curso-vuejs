@@ -2,7 +2,7 @@
 	<div id="app">
 		<h1>Registrar Reclamação</h1>
 		<div class="conteudo">
-			<form class="painel">
+			<form class="painel" v-if="!enviado">
 				<div class="cabecalho">Formulário</div>
 				<Rotulo nome="E-mail">
 					<input type="text" v-model.lazy.trim="usuario.email">
@@ -26,17 +26,17 @@
 					<span><input type="radio" value="outro" v-model="produto"> Outro</span>
 				</Rotulo>
 				<Rotulo nome="Prioridade">
-					<select name="" id="">
-						<option></option>
+					<select v-model="prioridade">
+						<option v-for="p in prioridades" :key="p.codigo" :value="p.codigo">{{ p.codigo }} - {{ p.nome }}</option>
 					</select>
 				</Rotulo>
 				<Rotulo nome="Primeira Reclamação?">
-					<Escolha />
+					<Escolha v-model="primeiraReclamacao" />
 				</Rotulo>
 				<hr>
-				<button>Enviar</button>
+				<button @click.prevent="enviar">Enviar</button>
 			</form>
-			<div class="painel">
+			<div class="painel" v-else>
 				<div class="cabecalho">Resultado</div>
 				<Rotulo nome="E-mail">
 					<span>{{ usuario.email }}</span>
@@ -61,10 +61,10 @@
 					<span>{{ produto }}</span>
 				</Rotulo>
 				<Rotulo nome="Prioridade">
-					<span>???</span>
+					<span>{{ prioridade }}</span>
 				</Rotulo>
 				<Rotulo nome="Primeira Reclamação?">
-					<span>???</span>
+					<span>{{ primeiraReclamacao ? 'Sim' : 'Não' }}</span>
 				</Rotulo>
 			</div>
 		</div>
@@ -83,12 +83,26 @@ export default {
 			mensagem: '',
 			caracteristicas: [],
 			produto: 'web',
+			prioridade: 1,
+			prioridades: [
+				{ codigo: 1, nome: 'Baixa' },
+				{ codigo: 2, nome: 'Moderada' },
+				{ codigo: 3, nome: 'Alta' },
+			],
 			usuario: {
 				email: '',
 				senha: '',
 				idade: 0,
-			}
+			},
+			primeiraReclamacao: true,
+			enviado: false,
 		}
+	},
+
+	methods: {
+		enviar() {
+			this.enviado = true;
+		},
 	}
 }
 </script>
