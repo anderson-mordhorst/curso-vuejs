@@ -4,12 +4,7 @@
 		<div class="conteudo">
 			<form class="painel" v-if="!enviado">
 				<div class="cabecalho">Formulário</div>
-				<rotulo nome="Nome">
-					<input type="text" v-model.trim="usuario.nome">
-				</rotulo>
-				<rotulo nome="Sobrenome">
-					<input type="text" v-model.trim="usuario.sobrenome">
-				</rotulo>
+				<nome-completo v-model="usuario"/>
 				<rotulo nome="Email">
 					<input type="text" v-model.trim="usuario.email">
 				</rotulo>
@@ -60,11 +55,12 @@
 </template>
 
 <script>
-import rotulo from './components/Rotulo.vue'
+import rotulo from './components/Rotulo.vue';
+import NomeCompleto from './components/NomeCompleto.vue';
 
 export default {
 	name: 'app',
-	components: { rotulo },
+	components: { rotulo, NomeCompleto },
 	data() {
 		return {
 			usuario: {
