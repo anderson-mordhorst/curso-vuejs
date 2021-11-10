@@ -22,17 +22,88 @@
 			<b-alert variant="info" show v-if="showMessage" key="first"> {{ message }}</b-alert>
 			<b-alert variant="warning" show v-else key="second"> {{ message }}</b-alert>
 		</transition>
+		<hr>
+		<button @click="showAgain = !showAgain">Alternar</button>
+		<!-- :css="false" faz com que seja totalmente controlado via JS  -->
+		<transition
+			:css="false"
+			@before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter" @enter-cancelled="enterCanceled"
+			@before-leave="beforeLeave" @leave="leave" @after-leave="afterLeave" @leave-cancelled="leaveCanceled">
+			<div class="caixa" v-if="showAgain"></div>
+		</transition>
+		<hr>
+		<div class="mb-4">
+			<b-button variant="primary" @click="componenteSelecionado = 'AlertaInfo'" class="mr-2">Info</b-button>
+			<b-button variant="primary" @click="componenteSelecionado = 'AlertaAdvertencia'">Advertência</b-button>
+		</div>
+		<transition name="fade" mode="out-in">
+			<component :is="componenteSelecionado"></component>
+		</transition>
 	</div>
 </template>
 
 <script>
+import AlertaAdvertencia from '@/AlertaAdvertencia.vue';
+import AlertaInfo from '@/AlertaInfo.vue';
 
 export default {
+	components: { AlertaAdvertencia, AlertaInfo },
 	data() {
 		return {
 			message: 'Uma mensagem de informação para usuário',
 			showMessage: false,
+			showAgain: true,
 			tipoAnimacao: 'fade',
+			larguraBase: 0,
+			componenteSelecionado: 'AlertaInfo',
+		}
+	},
+	methods: {
+		beforeEnter(element) {
+			this.larguraBase = 0;
+			element.style.width = `${this.larguraBase}px`;
+		},
+		enter(element, done) {
+			let rodada = 1;
+			const temporizador = setInterval(() => {
+				const novaLargura = this.larguraBase + rodada * 10;
+				element.style.width = `${novaLargura}px`;
+				rodada++;
+
+				if (rodada > 30) {
+					clearInterval(temporizador);
+					done();
+				}
+			}, 20);
+		},
+		afterEnter(element) {
+			//console.log("afterEnter");
+		},
+		enterCanceled(element) {
+			//console.log("enterCancelled");
+		},
+		beforeLeave(element) {
+			this.larguraBase = 300;
+			element.style.width = `${this.larguraBase}px`;
+		},
+		leave(element, done) {
+			let rodada = 1;
+			const temporizador = setInterval(() => {
+				const novaLargura = this.larguraBase - rodada * 10;
+				element.style.width = `${novaLargura}px`;
+				rodada++;
+
+				if (rodada > 30) {
+					clearInterval(temporizador);
+					done();
+				}
+			}, 20);
+		},
+		afterLeave(element) {
+			//console.log("afterLeave");
+		},
+		leaveCanceled(element) {
+			//console.log("leaveCancelled");
 		}
 	}
 }
@@ -47,6 +118,13 @@ export default {
 	color: #2c3e50;
 	margin-top: 60px;
 	font-size: 1.5rem;
+}
+
+.caixa {
+	height: 100px;
+	width: 300px;
+	margin: 30px auto;
+	background-color: lightgreen;
 }
 
 .fade-enter, .fade-leave-to {
