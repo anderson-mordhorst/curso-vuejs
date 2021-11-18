@@ -1,6 +1,7 @@
 <template>
 	<div id="app" class="container">
 		<h1>HTTP com Axios</h1>
+		<b-alert show dismissible v-for="mensagem in mensagens" :key="mensagem.texto" :variant="mensagem.tipo">{{ mensagem.texto }}</b-alert>
 		<b-card>
 			<b-form-group label="Nome:">
 				<b-form-input type="text" size="lg" v-model="usuario.nome" placeholder="Infome o nome"/>
@@ -17,7 +18,9 @@
 			<b-list-group-item v-for="(usuario, id) in usuarios" :key="id">
 				<strong>Nome: {{ usuario.nome }}</strong><br>
 				<strong>Email: {{ usuario.email }}</strong><br>
-				<strong>ID: {{ id }}</strong>
+				<strong>ID: {{ id }}</strong><br>
+				<b-button variant="warning" size="lg" @click="carregar(id)">Carregar</b-button>
+				<b-button variant="danger" size="lg" class="ml-2" @click="excluir(id)">Excluir</b-button>
 			</b-list-group-item>
 		</b-list-group>
 	</div>
@@ -29,7 +32,9 @@ const USUARIOS_ENDPOINT = 'usuarios.json';
 export default {
 	data() {
 		return {
+			mensagens: [],
 			usuarios: [],
+			id: null,
 			usuario: {
 				nome: null,
 				email: null,
@@ -38,21 +43,18 @@ export default {
 	},
 
 	created(){
-		//this.createUsuario();
+		this.obterUsuarios();
 	},
 
 	methods: {
-		createUsuario() {
-			this.$http.post(USUARIOS_ENDPOINT, {
-				nome: 'Anderson Mordhorst',
-				email: 'anderson.mordhorst@gmail.com'
-			}).then(response => console.log(response.data.name));
-		},
 		salvar() {
-			this.$http.post(USUARIOS_ENDPOINT, this.usuario).then(() => {
-				// deveria tratar o response.code
+			const method = this.id ? 'patch' : 'post';
+			const endUrl = this.id ? `${this.id}.json` : '.json';
+			this.$http[method](`/usuarios/${endUrl}`, this.usuario).then(() => {
 				this.clear();
-			})
+				this.addMensagem('Operação realizada com sucesso!', 'success');
+				this.obterUsuarios();				
+			});
 		},
 
 		obterUsuarios() {
@@ -64,6 +66,30 @@ export default {
 		clear() {
 			this.usuario.nome = null;
 			this.usuario.email = null;
+			this.id = null;
+			this.mensagens = [];
+		},
+
+		carregar(id){
+			this.id = id;
+			this.usuario = { ...this.usuarios[id] };
+		},
+
+		excluir(id){
+			this.$http.delete(`/usuarios/${id}.json`).then(() => {
+				this.clear();
+				this.obterUsuarios();
+			})
+			.catch(() => {
+				this.addMensagem('Problema ao excluir!', 'danger');
+			});
+		},
+
+		addMensagem(texto, tipo){
+			this.mensagens.push({
+				texto: texto,
+				tipo: tipo,
+			}); 
 		}
 	}
 }
