@@ -4,7 +4,13 @@ import Inicio from '@/components/Inicio.vue';
 import Usuario from '@/components/usuario/Usuario.vue';
 import UsuarioLista from '@/components/usuario/UsuarioLista.vue';
 import UsuarioDetalhe from '@/components/usuario/UsuarioDetalhe.vue';
-import UsuarioEditar from '@/components/usuario/UsuarioEditar.vue';
+// import UsuarioEditar from '@/components/usuario/UsuarioEditar.vue';
+
+// import dinâmico (náo irá ser carregado esse componente dentro do app.js carregado na aplicação). 
+// Será feito prefetch (0.js) e assim que entrar no componente irá ser feito a requisição HTTP 0.js)
+// webpackChunkName: irá criar um arquivo .js com o nome especificado e colocar cada import com esse comentário dentro do arquivo.
+// Ideal para carregar arquivos de módulos tardiamente em um único arquivo
+const UsuarioEditar = () => import(/* webpackChunkName: "usuario" */ '@/components/usuario/UsuarioEditar.vue');
 
 Vue.use(Router);
 
