@@ -3,7 +3,9 @@
 		<h1>Rotas com VueRouter</h1>
 		<Menu/>
 		<!-- local onde será carregado os componentes da rota -->
-		<router-view />
+		<transition mode="out-in" enter-active-class="animated rubberBand" leave-active-class="animated rollOut">
+			<router-view />
+		</transition>
 	</div>
 </template>
 
