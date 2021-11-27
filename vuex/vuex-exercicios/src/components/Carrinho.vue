@@ -26,11 +26,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
     computed: {
-        total() {
-            return this.$store.getters.valorTotal;
-        },
+        // copia todos os métodos getters do store para poder acessar direto, como se fosse método do componente
+        ...mapGetters({
+            total: 'valorTotal',
+        }),
+
         produtos() {
             return this.$store.state.produtos;
         }
