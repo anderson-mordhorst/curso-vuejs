@@ -6,6 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         produtos: [],
+        quantidade: 0,
+        preco: 0,        
     },
 
     getters: {
@@ -19,6 +21,22 @@ export default new Vuex.Store({
     mutations: {
         adicionarProduto(state, produto) {
             state.produtos.push(produto);
+        },
+
+        setQuantidade(state, quantidade) {
+            state.quantidade = quantidade;
+        },
+
+        setPreco(state, preco) {
+            state.preco = preco;
+        },
+    },
+
+    actions: {
+        adicionarProduto(context, produto) {
+            setTimeout(() => {
+                context.commit('adicionarProduto', produto);
+            }, 1000);
         },
     },
 });
