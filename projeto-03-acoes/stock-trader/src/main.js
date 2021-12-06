@@ -6,7 +6,7 @@ import store from '@/store.js';
 
 Vue.config.productionTip = false
 
-Vue.filter('dinheiro', valor => {
+Vue.filter('money', valor => {
 	return `R$ ${parseFloat(valor).toFixed(2)}`.replace('.', ',')
 });
 
