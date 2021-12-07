@@ -13,7 +13,7 @@ export default {
 
     actions: {
         buyStock(context, order) {
-            context.commit(order);
+            context.commit('buyStock', order);
         },
         
         initStocks(context) {
