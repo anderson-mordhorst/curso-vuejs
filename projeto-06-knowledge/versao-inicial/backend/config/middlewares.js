@@ -4,5 +4,5 @@ const cors = require('cors');
 // gerencia a dependências da aplicação
 module.exports = app => {
     app.use(bodyParser.json());
-    app.use(cors);
+    app.use(cors());
 };
