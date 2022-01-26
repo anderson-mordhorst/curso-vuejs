@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const consign = require('consign');
+const db = require('./config/db');
+
+app.db = db;
 
 // injeta o consign dentro de app (parâmetro do module.exports)
 consign()
