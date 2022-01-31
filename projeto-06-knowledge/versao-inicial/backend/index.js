@@ -8,6 +8,7 @@ app.db = db;
 // injeta o consign dentro de app (parâmetro do module.exports)
 consign()
     .then('./config/middlewares.js')
+    .then('./api/validation.js')
     .then('./api')
     .then('./config/routes.js')
     .into(app)
