@@ -33,7 +33,6 @@ module.exports = app => {
 
         user.password = encryptPassword(user.password);
         delete user.confirmPassword;
-        console.log(user);
 
         if(user.id) {
             app.db('users')
