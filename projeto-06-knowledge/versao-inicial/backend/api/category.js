@@ -95,10 +95,30 @@ module.exports = app => {
             .first()
             .then(category => response.json(category))
             .catch(error => response.status(500).send(error));
-    };    
+    };
+
+    const toTree = (categories, tree) => {
+        if(!tree) {
+            tree = categories.filter(category => !category.parentId);
+        }
+
+        tree = tree.map(parentNode => {
+            const isChild = node => node.parentId === parentNode.id;
+            parentNode.children = toTree(categories, categories.filter(isChild));
+            return parentNode;
+        });
+
+        return tree;
+    };
+
+    const getTree = (request, response) => {
+        app.db('categories')
+            .then(categories => response.json(toTree(categories)))
+            .catch(error => response.status(500).send(error));
+    };
 
 
     return {
-        save, remove, get, getById
+        save, remove, get, getById, getTree
     };
 }
