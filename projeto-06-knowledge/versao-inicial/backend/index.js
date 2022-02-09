@@ -7,6 +7,7 @@ app.db = db;
 
 // injeta o consign dentro de app (parâmetro do module.exports)
 consign()
+    .include('./config/passport.js')
     .then('./config/middlewares.js')
     .then('./api/validation.js')
     .then('./api')

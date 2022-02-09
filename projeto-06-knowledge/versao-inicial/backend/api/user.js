@@ -27,7 +27,6 @@ module.exports = app => {
             }
         }
         catch(message) {
-            console.log(message);
             return response.status(400).send(message);
         }
 
