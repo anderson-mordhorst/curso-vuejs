@@ -2,8 +2,11 @@ const express = require('express');
 const app = express();
 const consign = require('consign');
 const db = require('./config/db');
+const mongoose = require('mongoose');
+require('./config/mongodb');
 
 app.db = db;
+app.mongoose = mongoose;
 
 // injeta o consign dentro de app (parâmetro do module.exports)
 consign()
@@ -11,6 +14,7 @@ consign()
     .then('./config/middlewares.js')
     .then('./api/validation.js')
     .then('./api')
+    .then('./schedule')
     .then('./config/routes.js')
     .into(app)
 
