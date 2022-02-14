@@ -37,6 +37,7 @@ module.exports = app => {
             app.db('users')
                 .update(user)
                 .where({ id: user.id })
+                .whereNull('deletedAt')
                 .then(_ => response.status(204).send())
                 .cath(error => response.status(500).send(error));
         } else {
@@ -50,6 +51,7 @@ module.exports = app => {
     const get = (request, response) => {
         app.db('users')
             .select('id', 'name', 'email', 'admin')
+            .whereNull('deletedAt')
             .then(users => response.json(users))
             .catch(error => response.status(500).send(error));
     };
@@ -58,12 +60,30 @@ module.exports = app => {
         app.db('users')
             .select('id', 'name', 'email', 'admin')
             .where({id: request.params.id})
+            .whereNull('deletedAt')
             .first()
             .then(user => response.json(user))
             .catch(error => response.status(500).send(error));
-    };    
+    };
+
+    const remove = async (request, response) => {
+        try{
+            const articles = await app.db('articles').where({ userId: request.params.id });
+            notExistsOrError(articles, 'Usuário possui artigos');
+
+            const rowsUpdated = await app.db('users')
+                .update({ deletedAt: new Date() })
+                .where({ id: request.params.id });
+
+            existsOrError(rowsUpdated, 'Usuário não foi encontrado');
+            response.status(204).send();
+        }
+        catch(message) {
+            response.status(400).send(message);
+        }
+    };
 
     return {
-        save, get, getById
+        save, get, getById, remove
     };
 };
