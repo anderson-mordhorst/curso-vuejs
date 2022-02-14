@@ -14,6 +14,16 @@ module.exports = app => {
             user.id = request.params.id;
         }
 
+        // caso o usuário seja cadastrado pelo signup
+        if(!request.originalUrl.startsWith('/users')){
+            user.admin = false;
+        }
+
+        // essa validação foi adicionada no curso mas não faz sentido, visto que somente admin acessa a url /users
+        if(!request.user || !request.user.admin){
+            user.admin = false;
+        }
+
         try{
             existsOrError(user.name, 'Nome não informado');
             existsOrError(user.email, 'E-mail não informado');
