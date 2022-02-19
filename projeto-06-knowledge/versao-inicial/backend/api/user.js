@@ -49,12 +49,12 @@ module.exports = app => {
                 .where({ id: user.id })
                 .whereNull('deletedAt')
                 .then(_ => response.status(204).send())
-                .cath(error => response.status(500).send(error));
+                .catch(error => response.status(500).send(error));
         } else {
             app.db('users')
                 .insert(user)
                 .then(_ => response.status(204).send())
-                .cath(error => response.status(500).send(error));            
+                .catch(error => response.status(500).send(error));            
         }
     };
 
