@@ -1,17 +1,17 @@
 <template>
     <div class="home">
-        <PageTitle icon="fa fa-home" main="Dashboard" sub="Base de Conhecimento"/>
+        <page-title icon="fa fa-home" main="Dashboard" sub="Base de Conhecimento"/>
         <div class="stats">
-            <Stat title="Categoria" :value="stat.categories" icon="fa fa-folder" color="#d54d50"/>
-            <Stat title="Artigos" :value="stat.articles" icon="fa fa-file" color="#3bc480"/>
-            <Stat title="Usuários" :value="stat.users" icon="fa fa-user" color="#3282cd"/>
+            <stat title="Categoria" :value="stat.categories" icon="fa fa-folder" color="#d54d50"/>
+            <stat title="Artigos" :value="stat.articles" icon="fa fa-file" color="#3bc480"/>
+            <stat title="Usuários" :value="stat.users" icon="fa fa-user" color="#3282cd"/>
         </div>
     </div>
 </template>
 
 <script>
-import PageTitle from '@/components/template/PageTitle';
-import Stat from '@/components/home/Stat';
+import PageTitle from '@/components/template/PageTitle.vue';
+import Stat from '@/components/home/Stat.vue';
 import axios from 'axios';
 import { baseApiUrl } from '@/global';
 
