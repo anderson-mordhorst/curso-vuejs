@@ -6,7 +6,7 @@
                 <b-form-input id="category-name" type="text" v-model="category.name" required :readonly="mode === 'remove'" placeholder="Informe o nome"/>
             </b-form-group>
             <b-form-group label="Categoria Pai:" label-for="category-parentId">
-                <b-form-select id="category-parentId" v-if="mode === 'save'" :readonly="mode === 'remove'" :options="categories" v-model="category.parentId"/>
+                <b-form-select id="category-parentId" v-if="mode === 'save'" :options="categories" v-model="category.parentId"/>
             </b-form-group>
             <b-button variant="primary" v-if="mode === 'save'" @click="save">Salvar</b-button>
             <b-button variant="danger" v-if="mode === 'remove'" @click="remove">Excluir</b-button>
@@ -55,7 +55,7 @@ export default {
                         text: category.path,
                     }
                 });
-            })
+            });
         },
         save() {
             const method = this.category.id ? 'put' : 'post';
