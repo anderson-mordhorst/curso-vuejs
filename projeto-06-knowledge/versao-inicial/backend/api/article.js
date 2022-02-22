@@ -73,15 +73,18 @@ module.exports = app => {
             .where({ id: request.params.id })
             .first()
             .then(article => {
-                article.content = article.content.toString();
-                return response.json(article);
+                if (article) {
+                    article.content = article.content.toString();
+                    return response.json(article);
+                }
+                return response.status(204).send();
             })
             .catch(error => response.status(500).send(error));
     };
 
     const getByCategory = async (request, response) => {
         const categoryId = request.params.id;
-        const page = request.params.page || 1;
+        const page = request.query.page || 1;
         const categories = await app.db.raw(queries.categoryWithChildren, categoryId);
         const ids = categories.rows.map(category => category.id);
 
