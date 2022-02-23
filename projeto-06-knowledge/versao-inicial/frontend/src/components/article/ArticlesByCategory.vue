@@ -51,6 +51,17 @@ export default {
             this.loadCategory();
             this.loadArticles();
         }
+    },
+    watch: {
+        $route(to) {
+            this.category.id = to.params.id;
+            this.articles = [];
+            this.page = 1;
+            this.loadMore = true;
+
+            this.loadCategory();
+            this.loadArticles();            
+        }
     }
 }
 </script>
