@@ -43,6 +43,10 @@ export default {
 			const response = await axios.post(`${baseApiUrl}/validateToken`, user);
 			if(response.data) {
 				this.$store.commit('setUser', user);
+				
+				if(this.$mq === 'xs' || this.$mq === 'xs') {
+					this.$store.commit('toggleMenu');
+				}
 			} else {
 				localStorage.removeItem(userKey);
 				this.$router.push({ name: 'auth' });

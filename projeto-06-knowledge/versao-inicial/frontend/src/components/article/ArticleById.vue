@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import 'highlightjs/styles/dracula.css';
+import hljs from 'highlightjs/highlight.pack.js';
 import { baseApiUrl } from '@/global';
 import axios from 'axios';
 import PageTitle from '@/components/template/PageTitle.vue';
@@ -20,6 +22,11 @@ export default {
     },
     mounted() {
         axios.get(`${baseApiUrl}/articles/${this.$route.params.id}`).then(response => this.article = response.data);
+    },
+    updated() {
+        document.querySelectorAll('.article-content pre.ql-syntax').forEach(e => {
+            hljs.highlightBlock(e)
+        })
     },
 }
 </script>

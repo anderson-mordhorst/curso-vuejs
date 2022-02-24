@@ -39,6 +39,10 @@ export default {
                     id: node.id,
                 },
             });
+
+            if(this.$mq === 'xs' || this.$mq === 'xs') {
+                this.$store.commit('toggleMenu');
+            }
         },
     },
     mounted() {
