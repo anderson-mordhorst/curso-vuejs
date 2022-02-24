@@ -1,0 +1,8 @@
+Dockerizar o projeto:
+ - MongoDB
+ - PostgreSQL
+ - Backend
+ - Frontend
+
+Criar o knowledge-compose.yml
+Criar os arquivos .dockerignore
