@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>Flexbox #2</title>
+        <style>
+            div {
+                border: solid 5px dodgerblue;
+                font-size: 40px;
+            }
+
+            .flex-container div {
+                box-sizing: border-box;
+            }
+
+            .flex-container {
+                display: flex;
+                height: 300px;
+                width: 600px;
+            }
+
+            /* Aplicar este css no terceiro filho */
+            .flex-container div:nth-child(3) {
+                background-color: indianred;
+                order: 1; /* Altera a ordem deste elemento dentro do container flex. 0 é o default*/
+                order: 0; /* Volta o default */
+                order: -1; /* É exibido na primeira posição, visto que é menor que o valor default 0 */
+                align-self: center;
+                align-self: flex-end;
+                align-self: flex-start;
+                align-self: stretch; /* Valor padrão */
+            }
+
+            .flex-container div {
+                width: 100px;
+                flex-grow: 0; /* Pega o espaço restante do container e aplica em uma taxa definida de "crescimento". 0 não possui essa tava */
+                flex-grow: 1;
+            }
+
+            .flex-container div:nth-child(1) {
+                flex-grow: 2;
+            }
+
+            .flex-container {
+                width: 300px;
+                flex-shrink: 1; /* Quando faltar espaço, será descontado (reduzido) do elemento de acordo com o peso informado */
+            }
+
+            .flex-container div:nth-child(1) {
+                flex-shrink: 5; /* Pega o espaço faltante e divide por 8 (5 dessa div + 1 de outra div + 1 de outra div + 1 de outra div) e aplica o peso de 5 "descontos" */
+            }            
+        </style>
+    </head>
+    <body>
+        <div class="flex-container">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+        </div>
+    </body>
+</html>

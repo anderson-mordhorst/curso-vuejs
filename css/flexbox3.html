@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Flexbox #3</title>
+        <style>
+            div {
+                border: solid 5px dodgerblue;
+                font-size: 40px;
+            }
+
+            .flex-container div {
+                box-sizing: border-box;
+            }
+            
+            .flex-container {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .flex-container div {
+                flex-basis: 100px; /* Largura de um elemento dentro do container flex, dependendo do flex-direction */
+                width: 200px; /* Se estiver presente o flex-basis, será usado o flex-basis, caso contrário, o width toma o lugar*/
+            }
+
+            .flex-container div:nth-child(4) {
+                /*grow shrink basis */
+                flex: 3 6 100px;
+            }
+
+            .flex-container {
+                width: 300px; /* Aqui o uso do flex-shrink 6 acima terá visibilidade */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-container">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+        </div>
+    </body>
+</html>

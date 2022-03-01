@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>Flexbox #1</title>
+        <style>
+            div {
+                border: solid 5px dodgerblue;
+                font-size: 40px;
+                margin: 5px;
+            }
+
+            .big {
+                font-size: 1.5em;
+            }
+
+            .flex-container {
+                display: flex; /* Define que essa classe será um container do flex. Flex-direction default "row" */
+                flex-direction: column;
+                /* flex-direction: column-reverse; Exibe os elementos na forma inversa em que foram definidos */
+                flex-direction: row;
+                width: 15%;
+                height: 200px;
+                flex-wrap: wrap; /* Ajusta o conteúdo ao tamanho do container, quebrando linha quando necessário */
+
+                justify-content: flex-start;
+                justify-content: flex-end;
+                justify-content: center;
+                justify-content: space-around;
+                justify-content: space-between;
+
+                /* Cross axis */
+                height: 400px;
+                align-items: stretch; /* padrão */
+                align-items: baseline; /* alinha pelo conteúdo das divs nesse caso */
+                align-items: flex-start; /* alinha pela parte de cima */
+                align-items: flex-end; /* alinha pela parte de baixo */
+
+                /* Mais de uma linha */
+                align-content: flex-start;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-container">
+            <div>1</div>
+            <div>2</div>
+            <div class="big">3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div>10</div>
+        </div>        
+    </body>
+</html>
