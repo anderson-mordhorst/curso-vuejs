@@ -13,3 +13,9 @@ console.log(area(2, 2));
 console.log(area(2));
 console.log(area());
 console.log(area(5, 5));
+
+/* this pode variar usado dentro de uma funcion declarada normalmente 
+   Porém, quando usado em arrow function o comportamento do this não altera
+   
+   this léxico: associado no local onde foi escrita a function e não onde ela é resolvida (executada)
+*/
